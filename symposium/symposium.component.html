@@ -1,0 +1,181 @@
+<div class="container">
+  <div class="row">
+    <!-- Filteration -->
+    <div class="col-md-3">
+      <div class="accordion mt-3" id="filterAccordion">
+        <h2 style="text-align: center;">Filters</h2>
+        <!-- Date Filter -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Date
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+              <div *ngFor="let date of dates">
+                <input type="checkbox" [value]="date" [checked]="isDateSelected(date)" (change)="onDateChange(date, $event.target.checked)"> {{date}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Location Filter -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Location
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#filterAccordion">
+          <div class="accordion-body">
+            <div *ngFor="let location of locations">
+              <input type="checkbox" [value]="location"  [checked]="isLocationSelected(location)"(change)="onLocationChange(location, $event.target.checked)"> {{location}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- Dept Filter  -->
+       <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Department
+          </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#filterAccordion">
+            <div class="accordion-body">
+              <div *ngFor="let dept of depts">
+                <input type="checkbox" [value]="dept" [checked]="isDeptSelected(dept)"(change)="onDeptChange(dept, $event.target.checked)"> {{dept}}
+              </div>
+            </div>
+          </div> 
+        </div> 
+        
+         <!-- Price Filter  -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              Price
+            </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#filterAccordion">
+              <div class="accordion-body">
+                <div *ngFor="let price of prices">
+                  <input type="checkbox" [value]="price" [checked]="isPriceSelected(price)"(change)="onPriceChange(price, $event.target.checked)"> {{price}}
+                </div>
+              </div>
+            </div> 
+          </div>           
+        <div class="button-container">
+          <button type="button" style="margin-right: 10px;" (click)="applyFilters()">Apply Filters</button> 
+          <button type="button" (click)="clearFilters()">Clear Filters</button>
+      </div>
+      </div>
+      </div>
+      <!-- Cards -->
+      <div class="col-md-9" >
+        <div class="row">
+   <div class="col-md-4"  *ngFor="let symposium of filteredSymposiums">
+     <div class="card mb-3" style="width:100%;height: 500px;" >
+       <img src='../../assets/{{ symposium.title}}.jpg' class="card-img-top" style="height: 200px;" alt="...">
+       <div class="card-body" text-center>
+         <b>{{ symposium.title }}</b><br>
+         <div>
+             <img src="../../assets/calendar_month_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+             <span><b>Date: </b>{{ symposium.date }}</span>
+         </div>
+         <div>
+          <img src="../../assets/history_edu_FILL0_wght400_GRAD0_opsz24.png" width="22" height="22">
+          <span><b>Department: </b>{{ symposium.dept }}</span>
+        </div>
+         <div>
+             <img src="../../assets/location_on_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+             <span><b>Location: </b>{{ symposium.location }}</span>
+         </div>
+         <div>
+             <img src="../../assets/payments_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+             <span><b>Price: </b>{{ symposium.price }}</span>
+         </div>
+         <p class="card-text" style="font-size: small;">{{ symposium.description }}</p>
+         <button type="submit" class="btn btn-primary" (click)="openModal(symposium)">Book Now</button>
+       </div>
+     </div>
+   </div>
+   <div class="col-md-12 text-center" *ngIf="filteredSymposiums.length === 0">
+    <h2><b>No result found</b></h2>
+  </div>
+ </div>
+ </div>
+
+ <!-- Registration -->
+
+<div class="modal" id="exampleModal" tabindex="-1" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" >
+  <div class="modal-content" *ngIf="!issubmitted">
+    <div class="modal-body">
+      <div class="containerTwo">
+        <span style="font-size:x-large;">Registration Form</span>
+        <button style="margin-left: 50%;" type="button" class="btn-close" (click)="onCloseHandled()"></button>
+        <form [formGroup]="regForm" (ngSubmit)="submitForm()" autocomplete="off">
+        <div formGroupName="formData">
+          {{ curr_cl?.title }}
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" required>
+            <div class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.name')">
+              Name is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.email')">
+              Please enter a valid email.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contact">Contact Number</label>
+            <input type="tel" class="form-control" id="contact" formControlName="contact" required>
+            <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.contact')">
+              Please enter a valid contact number.
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <span>Seats: <input type="number" [(ngModel)]="seats" id="seats" formControlName="seats" style="width: 10%;" min=1 max=10 required>
+            Fees per seat: {{ curr_cl?.price }}
+            <button type="button" (click)="calc_fees()">Calculate</button>
+          </span>
+          </div>
+          <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.seats')">
+            Enter a Valid Count
+          </div>
+          <br>
+          Total booking fee: Rs.{{ total_fees }}/-
+          <div style="text-align: center; padding: 10px;">
+            <button type="submit" class="btn btn-primary" [disabled]="!regForm.valid">Submit</button>
+          </div>
+         
+        </div>
+        </form>
+      </div>
+      </div>
+  </div>
+  <div class="modal-content" *ngIf="issubmitted">
+    <div class="modal-body">
+      <button type="button" class="btn-close" (click)="onCloseHandled()"></button>
+      <img src="../../assets/success.png" alt="Green checkmark" class="modal-image">
+      <p class="modal-message">Thank you {{ cname }}! You have successfully registered for {{ curr_cl.name }}</p>
+      <p><b>Location: </b>{{ curr_cl.location }}</p>
+      <p><b>Date: </b>{{ curr_cl.date }}</p>
+      <p><b>Total fees: </b>Rs.{{ total_fees }}/-</p>
+    </div>
+  </div>
+  </div>
+  </div>
+
+ 
+  
+
+  
+  

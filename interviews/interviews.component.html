@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Filteration -->
+  <div class="col-md-3">
+    <div class="accordion mt-3" id="filterAccordion">
+      <h2 style="text-align: center;">Filters</h2>
+       <!-- Salary Filter  -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Salary
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#filterAccordion">
+        <div class="accordion-body">
+          <div *ngFor="let salary of salaries">
+            <input type="checkbox" [value]="salary" [checked]="isSalarySelected(salary)"  (change)="onSalaryChange(salary, $event.target.checked)"> {{salary}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Location Filter  -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Location
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#filterAccordion">
+        <div class="accordion-body">
+          <div *ngFor="let location of locations">
+            <input type="checkbox" [value]="location" [checked]="isLocationSelected(location)" (change)="onLocationChange(location, $event.target.checked)"> {{location}}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+     <!-- Experience Filter  -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Experience
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#filterAccordion">
+        <div class="accordion-body">
+          <div *ngFor="let experience of experiences">
+            <input type="checkbox" [value]="experience" [checked]="isExperienceSelected(experience)" (change)="onExperienceChange(experience, $event.target.checked)"> {{experience}}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+     <!-- Skills Filter  -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Skills
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#filterAccordion">
+        <div class="accordion-body">
+          <div *ngFor="let skill of skills">
+            <input type="checkbox" [value]="skill" [checked]="isSkillSelected(skill)"  (change)="onSkillChange(skill, $event.target.checked)"> {{skill}}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="button-container">
+      <button type="button" style="margin-right: 10px;" (click)="applyFilters()">Apply Filters</button> 
+      <button type="button" (click)="clearFilters()">Clear Filters</button>
+  </div>
+  </div>
+  </div>
+
+  <!-- Cards -->
+  
+  <div class="col-md-9">
+    <div class="card-container">
+        <div *ngFor="let data of filteredRoles" class="card mb-3">
+           <div class="card-content shadow-sm d-flex" id="cards">
+               <img src='../../assets/{{ data.company}}.jpg' id="my-image" class="d-flex align-items-start">
+               <div>
+                   <div style="font-weight: bold;font-size: x-large;">Role : {{data.role}}</div>
+                   <div>Company : {{data.company}}</div>
+                                     
+                   <span>
+                   <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                       <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                     </svg> {{data.experience}}
+
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                       <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/>
+                     </svg>{{data.salary}}
+                     
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                       <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                       <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                     </svg>  {{data.location}}
+                   
+                   </div></span>
+                   <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                       <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                       <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+                     </svg>  {{data.skills}}</div>
+      
+                     <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+                      </svg> {{data.description}}
+                     </div>
+                     <button type="button" class="btn btn-primary my-3 float-right" id="button" (click)="openModal(data)">Apply</button>
+                 </div>
+           </div>
+       </div>
+       <div class="col-md-12 text-center" *ngIf="filteredRoles.length === 0">
+        <h2><b>No result found</b></h2>
+      </div>
+   </div>
+</div>
+</div>
+</div> 
+
+<!-- Registration Form -->
+
+<div class="modal" id="exampleModal" tabindex="-1" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" >
+  <div class="modal-content" *ngIf="!issubmitted">
+    <div class="modal-body">
+      <div class="container">
+        <div class="containerTwo">
+          <span style="font-size:x-large;align-items: center; ">Apply For {{ curr_cl?.company }}</span> 
+          <button type="button" class="btn-close" (click)="onCloseHandled()"></button>
+        </div>
+        <form [formGroup]="regForm" (ngSubmit)="submitForm()" autocomplete="off">
+        <div formGroupName="formData">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" required>
+            <div class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.name')">
+              Name is required.
+            </div>
+          </div>
+     
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.email')">
+              Please enter a valid email.
+            </div>
+          </div>
+     
+          <div class="form-group">
+            <label for="contact">Contact Number</label>
+            <input type="tel" class="form-control" id="contact" formControlName="contact" required>
+            <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.contact')">
+              Please enter a valid contact number.
+            </div>
+          </div>
+          <div style="text-align: center; padding: 10px;">
+            <button type="submit" class="btn btn-primary" [disabled]="!regForm.valid">Submit</button>
+          </div>
+        </div>
+        </form>
+      </div>
+      </div>
+  </div>
+  <div class="modal-content" *ngIf="issubmitted">
+    <div class="modal-body">
+        <button type="button" class="btn-close" (click)="onCloseHandled()"></button>
+        <img src="../../assets/success.png" alt="Green checkmark">
+        <p>Thank you {{ cname }}! You have successfully registered for {{ curr_cl.company }}</p>
+        <p><b>Location: </b>{{ curr_cl.location }}</p>
+    </div>
+</div>
+</div>
+</div>

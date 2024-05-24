@@ -1,0 +1,147 @@
+<div id="caro" class="carousel" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active"  data-bs-interval="2000">
+        <img src="../../assets/6.jpg" class="d-block w-60 uniform-image" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="../../assets/1.jpeg" class="d-block w-60 uniform-image" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="../../assets/5.png" class="d-block w-60 uniform-image" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="../../assets/7.png" class="d-block w-60 uniform-image" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="../../assets/8.png" class="d-block w-60 uniform-image" alt="...">
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <p class="text-center">Popular Events</p>
+    <div class="row justify-content-start mb-3">
+      <div class="col-md-4 "*ngFor="let culturals of culturals">
+        <div class="card mb-3" style="width: 100%;height: 500px;">
+          <img src='../../assets/{{ culturals.name}}.jpg' class="card-img-top" style="height: 200px;" alt="...">
+          <div class="card-body" text-center>
+            <b>{{ culturals.name }}</b><br>
+            <div>
+                <img src="../../assets/calendar_month_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                <span><b>Date: </b>{{ culturals.datetime }}</span>
+            </div>
+            <div>
+                <img src="../../assets/location_on_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                <span><b>Location: </b>{{ culturals.location }}</span>
+            </div>
+            <div>
+                <img src="../../assets/person_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                <span><b>Organizer: </b>{{ culturals.organizer }}</span>
+            </div>
+            <div>
+                <img src="../../assets/payments_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                <span><b>Price: </b>{{ culturals.price }}</span>
+            </div>
+            <p class="card-text" style="font-size: small;">{{ culturals.description }}</p>
+            <button  type="submit" class="btn btn-primary" (click)="openModal(culturals)">Book Now</button>
+          </div>
+        </div>
+      </div>
+         <div class="col-md-4"  *ngFor="let webinars of webinars">
+           <div class="card mb-3" style="width: 100%;height: 500px;" >
+             <img src='../../assets/{{ webinars.name}}.jpg' class="card-img-top" style="height: 200px;" alt="...">
+             <div class="card-body" text-center>
+               <b>{{ webinars.name }}</b><br>
+               <div>
+                   <img src="../../assets/calendar_month_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                   <span><b>Date: </b>{{ webinars.datetime }}</span>
+               </div>
+               <div>
+                   <img src="../../assets/location_on_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                   <span><b>Location: </b>{{ webinars.location }}</span>
+               </div>
+               <div>
+                   <img src="../../assets/person_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                   <span><b>Mentor: </b>{{ webinars.mentor }}</span>
+               </div>
+   
+               <div>
+                   <img src="../../assets/payments_FILL0_wght400_GRAD0_opsz48.png" width="22" height="22">
+                   <span><b>Price: </b>{{ webinars.price }}</span>
+               </div>
+               <p class="card-text" style="font-size: small;">{{ webinars.description }}</p>
+               <button type="submit" class="btn btn-primary" (click)="openModal(webinars)">Book Now</button>
+             </div>
+       </div>
+       </div>
+    </div>
+  </div>
+  <!-- Registration From -->
+  <div class="modal" id="exampleModal" tabindex="-1" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" >
+    <div class="modal-content" *ngIf="!issubmitted">
+      <div class="modal-body">
+        <div class="containerTwo">
+          <span style="font-size:x-large;">Registration Form</span>
+          <button style="margin-left: 50%;" type="button" class="btn-close" (click)="onCloseHandled()"></button>
+         
+          <form [formGroup]="regForm" (ngSubmit)="submitForm()">
+          <div formGroupName="formData">
+            {{ curr_cl?.name }}
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" required>
+              <div class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.name')">
+                Name is required.
+              </div>
+            </div>
+       
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email" required>
+              <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.email')">
+                Please enter a valid email.
+              </div>
+            </div>
+       
+            <div class="form-group">
+              <label for="contact">Contact Number</label>
+              <input type="tel" class="form-control" id="contact" formControlName="contact" required>
+              <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.contact')">
+                Please enter a valid contact number.
+              </div>
+            </div>
+            <hr>
+            <div class="form-group">
+              <span>Seats: <input type="number" [(ngModel)]="seats" id="seats" formControlName="seats" style="width: 10%;" min=1 max=10 required>
+              Fees per seat: {{ curr_cl?.price }}
+              <button type="button" (click)="calc_fees()">Calculate</button>
+            </span>
+            </div>
+            <div  class="text-danger" *ngIf="isControlInvalid(regForm, 'formData.seats')">
+              Total No. of Seats should be mentioned
+            </div>
+            <br>
+     
+            Total booking fee: Rs.{{ total_fees }}/-
+            <div style="text-align: center; padding: 10px;">
+              <button type="submit" class="btn btn-primary" [disabled]="!regForm.valid">Submit</button>
+            </div>
+           
+          </div>
+          </form>
+        </div>
+        </div>
+    </div>
+    <div class="modal-content" *ngIf="issubmitted">
+        <div class="modal-body" >
+            <button type="button" class="btn-close" (click)="onCloseHandled()"></button>
+          <img src="../../assets/success.png" alt="Green checkmark">
+          <p>Thank you {{ cname }}! You have successfully registered for {{ curr_cl.name }}</p>
+          <p><b>Location: </b>{{ curr_cl.location }}</p>
+          <p><b>Date: </b>{{ curr_cl.datetime }}</p>
+          <p><b>Total fees: </b> Rs.{{ total_fees }}/-</p>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="header">
+<div class="col-md-12">
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img src="../../assets/logo.png" class="logo">
+        <p class="title">RelEventz</p>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a [routerLink]="['interviews']" class="nav-link" href="">Jobs</a>
+            </li>
+              <li class="nav-item active">
+                <a [routerLink]="['webinar']" class="nav-link" href="">Webinar</a>
+              </li>
+              <li class="nav-item active">
+                <a [routerLink]="['workshop']" class="nav-link" href="">Workshops</a>
+              </li>
+              <li class="nav-item active">
+                <a [routerLink]="['culturals']" class="nav-link" href="">Cultural Events</a>
+              </li>
+              <li class="nav-item active">
+                <a [routerLink]="['symposium']" class="nav-link" href="">Symposium</a>
+              </li>
+            <li class="nav-item active">
+                <a [routerLink]="['about-us']" class="nav-link" href="">About Us</a>
+            </li>
+            <li class="nav-item active" *ngIf="router.url !== '/'">
+              <a class="nav-link" href="#">Home</a>
+            </li>            
+          </ul>
+      </div>
+  </nav>
+</div>
+</div>
+ 

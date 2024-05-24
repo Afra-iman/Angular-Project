@@ -1,0 +1,110 @@
+
+  
+  .container {
+    padding: 10px;
+    margin-top: 90px;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .col-md-3, .col-md-9 {
+    padding: 15px;
+  }
+  
+  #filterAccordion {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .accordion-item {
+    margin: 10px;
+  }
+  
+  .accordion-header {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .accordion-button {
+    width: 100%;
+    text-align: center;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    outline: none;
+    transition: background-color 0.5s ease;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .accordion-button:hover {
+    background-color: #e9ecef;
+  }
+  
+  .accordion-button.collapsed {
+    background-color: #ffffff;
+  }
+  
+  .accordion-collapse {
+    background-color: #ffffff;
+  }
+  
+  .accordion-body {
+    font-size: 1em;
+    color: #6c757d;
+  }
+  .accordion{
+    padding: 15px;
+  }
+  .card {
+    display: flex;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    overflow: hidden;
+    margin:  10px;
+  }
+
+  .modal-content {
+    border-width: 2px;
+    border-color: rgb(147, 218, 242);
+    border-style: inset;
+  }
+  
+  .modal-body {
+    background-color: white;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+  }
+  
+  .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .modal-image {
+    height: 100px;
+    border-radius: 30px;
+    margin-top: 20px;
+  }
+  
+  .modal-message {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+
+  
+

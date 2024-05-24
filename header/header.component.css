@@ -1,0 +1,64 @@
+.header{
+  flex-shrink: 0;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  background-color: white;
+  width: 100%;
+ 
+}
+.navbar{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+  
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  margin-left: 30px;
+}
+  
+.logo {
+  margin-right: 10px;
+  height: 60px;  
+  width: auto;
+}
+  
+.title {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.nav-item a:hover {
+  text-decoration: underline;
+  transform: scale(1.2);
+ }
+
+li{
+  margin:5px;
+  padding: 5px;
+}
+
+.navbar-nav{
+  margin-left: 50px;
+  width: 95%;
+}
+
+.nav-item {
+  font-size  : 18px;
+}
+  
+.navbar-collapse{
+  text-align: center;
+} 
+
+.clicked {
+  color: purple !important;
+}
+
+@media (max-width:570px){
+  .navbar-collapse{
+    display: block;
+  }
+}

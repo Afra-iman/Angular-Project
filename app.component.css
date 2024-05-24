@@ -1,0 +1,31 @@
+*{
+    font-family: 'Rubik', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box;
+    outline: none; border:none;
+    text-decoration: none;
+    transition:all .2s linear;
+ }
+ 
+ *::-webkit-scrollbar{
+    height: .5rem;
+    width: 1rem;
+ }
+ 
+ *::-webkit-scrollbar-track{
+    background-color: transparent;
+ }
+ 
+ *::-webkit-scrollbar-thumb{
+    background-color: var(--purple);
+ }
+
+ body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+
+  *::selection{
+    background-color: purple;
+    color:white;
+ }
